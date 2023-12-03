@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# This script installs Nginx on a new Ubuntu machine and configures it
+
+# Update package list and install Nginx
+sudo apt-get update -y
+sudo apt-get install nginx -y
+
+# Create a simple HTML page
+sudo tee /var/www/html/index.html > /dev/null <<< "Hello World!"
+
+# Restart Nginx to apply changes
+sudo service nginx restart
+
+# Check if Nginx is listening on port 80
+sudo netstat -tnl | grep ":80" > /dev/null
+if [ $? -eq 0 ]; then
+    echo "Nginx is listening on port 80"
+else
+    echo "Nginx is not listening on port 80. Check Nginx logs for more details."
+fi
