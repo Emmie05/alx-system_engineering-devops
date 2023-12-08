@@ -1,20 +1,12 @@
 #!/usr/bin/env bash
-# This script installs Nginx on a web server and configures it to meet the specified requirements
 
-# Update package list and install Nginx
+# Install Nginx
 apt-get update
 apt-get install -y nginx
 
-# Start Nginx (no need for systemctl)
-service nginx start
-
-# Create a simple HTML file with "Hello World!"
-echo "<html><body>Hello World!</body></html>" > /var/www/html/index.html
-
-# Display success message
-echo "Nginx installed and configured successfully."
-
-# Ensure Nginx is listening on port 80
-if ! netstat -tuln | grep ":80 "; then
+# Check if Nginx is running and listening on port 80
+if ss -tnl | grep -q ':80'; then
+    echo "Nginx is running and listening on port 80."
+else
     echo "Nginx is not listening on port 80. Check Nginx logs for more details."
 fi
