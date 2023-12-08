@@ -1,17 +1,23 @@
 #!/usr/bin/env bash
-# Configure Nginx to redirect /redirect_me to another page
+# This script configures Nginx for redirection
 
-# Install Nginx if not already installed
-if ! command -v nginx &> /dev/null; then
-    apt-get update
-    apt-get install -y nginx
+# Check if Nginx is installed
+if [ ! -x "$(command -v nginx)" ]; then
+    echo "Nginx is not installed. Please run 1-install_nginx_web_server first."
+    exit 1
 fi
 
-# Backup the default Nginx configuration
-cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default_backup
+# Create a backup of the default Nginx configuration file
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
 
-# Use sed to replace a line in the Nginx configuration
-sed -i '/location \/ {/a \\tlocation /redirect_me {\\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\\n\t}' /etc/nginx/sites-available/default
+# Configure Nginx for redirection
+sed -i '/server_name _;/a \
+        location \/redirect_me { \
+            return 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4; \
+        }' /etc/nginx/sites-available/default
 
-# Restart Nginx to apply the changes
+# Restart Nginx to apply changes
 service nginx restart
+
+# Display success message
+echo "Nginx configured for redirection. /redirect_me now redirects to https://www.youtube.com/watch?v=QH2-TGUlwu4."

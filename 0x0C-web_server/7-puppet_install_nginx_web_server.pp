@@ -1,37 +1,54 @@
-# Puppet manifest to install and configure Nginx with a 301 redirect
+# 5-install_nginx_web_server.pp
 
 # Install Nginx package
 package { 'nginx':
   ensure => installed,
 }
 
-# Define the Nginx configuration file
+# Configure Nginx
 file { '/etc/nginx/sites-available/default':
-  ensure  => present,
-  content => "
-    server {
-        listen 80;
-        server_name _;
-        root /var/www/html;
-
-        location / {
-            return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-        }
-    }
-  ",
-  require => Package['nginx'],
+  ensure  => file,
+  content => "# Nginx default configuration file\n
+              server {\n
+                listen 80 default_server;\n
+                listen [::]:80 default_server;\n
+                server_name utopiandevs.tech;\n
+                root /var/www/html;\n
+                index index.html index.htm;\n
+\n
+                location / {\n
+                  try_files \$uri \$uri/ =404;\n
+                }\n
+\n
+                location /redirect_me {\n
+                  return 301 https://www.utopiandevs.tech;\n
+                }\n
+\n
+                error_page 404 /404.html;\n
+                location = /404.html {\n
+                  root /usr/share/nginx/html;\n
+                  internal;\n
+                }\n
+              }\n",
 }
 
-# Enable the Nginx site configuration
-file { '/etc/nginx/sites-enabled/default':
-  ensure  => link,
-  target  => '/etc/nginx/sites-available/default',
-  require => File['/etc/nginx/sites-available/default'],
+# Create Hello World index.html file
+file { '/var/www/html/index.html':
+  ensure  => file,
+  content => '<!DOCTYPE html>
+              <html>
+                <head>
+                  <title>Hello World!</title>
+                </head>
+                <body>
+                  <h1>Hello World!</h1>
+                </body>
+              </html>',
 }
 
-# Restart Nginx service
+# Restart Nginx to apply changes
 service { 'nginx':
-  ensure    => running,
-  enable    => true,
-  subscribe => File['/etc/nginx/sites-enabled/default'],
+  ensure  => running,
+  enable  => true,
+  require => File['/etc/nginx/sites-available/default', '/var/www/html/index.html'],
 }
