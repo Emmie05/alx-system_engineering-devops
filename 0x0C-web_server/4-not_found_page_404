@@ -1,32 +1,40 @@
 #!/usr/bin/env bash
-# This script configures Nginx for a custom 404 page
+# Configures a new ubuntu machine by installing
+# Nginx where it should be listening on port 80
+# Serve a page that would return a Hello World string
+#
 
-# Check if Nginx is installed
-if [ ! -x "$(command -v nginx)" ]; then
-    echo "Nginx is not installed. Please run 1-install_nginx_web_server first."
-    exit 1
-fi
+echo -e "Updating and installing Nginx.\n"
+sudo apt-get update -y -qq && \
+	 sudo apt-get install nginx -y
 
-# Create a backup of the default Nginx configuration file
-cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+echo -e "\nSetting up some minor stuff.\n"
 
-# Configure Nginx for custom 404 page
-sed -i '/server_name _;/a \
-        error_page 404 /404.html;' /etc/nginx/sites-available/default
+# starting nginx service
+sudo service nginx start
 
-echo '<!DOCTYPE html>
-<html>
-<head>
-    <title>404 Not Found</title>
-</head>
-<body>
-    <h1>Ceci n\'est pas une page</h1>
-    <p>This is a custom 404 page.</p>
-</body>
-</html>' | tee /usr/share/nginx/html/404.html > /dev/null
+# allowing nginx on firewall
+sudo ufw allow 'Nginx HTTP'
 
-# Restart Nginx to apply changes
-service nginx restart
+# Give the user ownership to website files for easy editing
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
 
-# Display success message
-echo "Nginx configured for custom 404 page. Accessing a non-existent page will return a 404 error with the message 'Ceci n'est pas une page.'"
+# Backup default index
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+# Creating new index
+echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+
+# Setting up /redirect_me to a youtube video
+sudo sed -i '24i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+
+# Set up a 404 page
+echo "Ceci n'est pas une page" >> /var/www/html/error_404.html
+sudo sed -i '25i\	error_page 404 /error_404.html;' /etc/nginx/sites-available/default
+
+# Restarting nginx
+sudo service nginx restart
+
+echo -e "\nCompleted.\n"
+
