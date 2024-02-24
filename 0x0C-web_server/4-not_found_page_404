@@ -3,12 +3,17 @@
 # Nginx where it should be listening on port 80
 # Serve a page that would return a Hello World string
 #
+# colors
+blue='\e[1;34m'
+brown='\e[0;33m'
+green='\e[1;32m'
+reset='\033[0m'
 
-echo -e "Updating and installing Nginx.\n"
+echo -e "${blue}Updating and installing ${brown}Nginx${blue}.${reset}\n"
 sudo apt-get update -y -qq && \
 	 sudo apt-get install nginx -y
 
-echo -e "\nSetting up some minor stuff.\n"
+echo -e "\n${blue}Setting up some minor stuff.${reset}\n"
 
 # starting nginx service
 sudo service nginx start
@@ -36,4 +41,5 @@ sudo sed -i '25i\	error_page 404 /error_404.html;' /etc/nginx/sites-available/de
 # Restarting nginx
 sudo service nginx restart
 
-echo -e "\nCompleted.\n"
+echo -e "\n${green}Completed.${reset} ✅\n"
+
