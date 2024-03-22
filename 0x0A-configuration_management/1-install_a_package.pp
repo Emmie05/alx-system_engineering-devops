@@ -5,6 +5,3 @@ package { 'flask':
   provider => 'pip3',
 }
 
-
-
-
