@@ -9,3 +9,4 @@ echo "Your identification has been saved in school."
 echo "Your public key has been saved in school.pub."
 echo "The key fingerprint is:"
 ssh-keygen -lf school
+
