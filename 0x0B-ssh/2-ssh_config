@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Script that creates an RSA key pair
+# Configuration script
 
 Host your_server_alias
     HostName 100.25.154.172
