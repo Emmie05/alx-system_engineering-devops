@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
-# Script creates an RSA key pair with a passphrase
+# This script creates an RSA key pair with a passphrase
 
-private_key="school"
-size="4096"
-passphrase="betty"
+ssh-keygen -t rsa -b 4096 -f school -N betty
 
-ssh-keygen -t rsa -b "$size" -f "$private_key" -N "$passphrase" 
+# Displaying the key information
+echo "Generating public/private rsa key pair."
+echo "Your identification has been saved in school."
+echo "Your public key has been saved in school.pub."
+echo "The key fingerprint is:"
+ssh-keygen -lf school
