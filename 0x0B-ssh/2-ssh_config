@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/.ssh/config
+# Script that creates an RSA key pair
 
 Host your_server_alias
     HostName 100.25.154.172
