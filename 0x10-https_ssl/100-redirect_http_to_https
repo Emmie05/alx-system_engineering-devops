@@ -41,7 +41,7 @@ frontend utopiandevs-frontend
         default_backend utopiandevs-backend
 
 frontend utopiandevs-frontend-https
-        bind *:443 ssl crt /etc/haproxy/certs/utopiandevs.tech.pem
+        bind *:443 ssl crt /etc/haproxy/certs/www.utopiandevs.tech.pem
         http-request set-header X-Forwarded-Proto https
         default_backend utopiandevs-backend
 
