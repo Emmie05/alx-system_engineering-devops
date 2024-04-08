@@ -20,4 +20,4 @@ frontend utopiandevs-tech-frontend
 backend utopiandevs-tech-backend
 	balance roundrobin
 	server 225787-web-01 100.25.154.172 check
-        server 225787-web-02 52.91.148.31 check
+    server 225787-web-02 52.91.148.31 check
