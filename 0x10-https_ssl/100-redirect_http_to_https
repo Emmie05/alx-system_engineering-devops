@@ -12,7 +12,7 @@ defaults
 
 frontend utopiandevs-tech-frontend
 	bind *:80
-	bind *:443 ssl crt /etc/haproxy/certs/utopiandevs.tech.pem
+	bind *:443 ssl crt /etc/haproxy/certs/www.utopiandevs.tech.pem
 	http-request redirect scheme https code 301 unless { ssl_fc }
 	http-request set-header X-Forwarded-Proto https
 	default_backend utopiandevs-tech-backend
