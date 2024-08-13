@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# Configuration script
-
-Host your_server_alias
-    HostName 100.25.154.172
-    User ubuntu
-    IdentityFile ~/.ssh/school
-    PasswordAuthentication no
