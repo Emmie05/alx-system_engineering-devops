@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/env bash
 # Configuration script
 
@@ -6,3 +7,13 @@ Host your_server_alias
     User ubuntu
     IdentityFile ~/.ssh/school
     PasswordAuthentication no
+=======
+#!/usr/bin/env bash
+# Configuration script
+
+Host *
+    HostName 54.160.69.41
+    User ubuntu
+    IdentityFile ~/.ssh/school
+    PasswordAuthentication no
+>>>>>>> 6af82e3f541adaeaa247f590ee6fe23658a6a33b
