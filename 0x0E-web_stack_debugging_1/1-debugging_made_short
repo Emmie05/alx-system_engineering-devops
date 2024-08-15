@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-apt-get update
-apt-get install -y nginx
+rm /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 service nginx start
