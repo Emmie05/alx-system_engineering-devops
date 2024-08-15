@@ -45,8 +45,8 @@ frontend utopiandevs-tech-backend
 
 backend utopiandevs-tech-backend
     balance roundrobin
-    server 225787-web-01 54.160.69.41:80 check
-    server 225787-web-02 54.160.118.82:80 check
+    server 225787-web-01 3.83.253.154:80 check
+    server 225787-web-02 34.229.66.227:80 check
 "
 
 # shellcheck disable=SC2154
