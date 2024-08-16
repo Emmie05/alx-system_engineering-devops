@@ -5,10 +5,9 @@ import requests
 Script that queries subscribers on a given Reddit subreddit.
 """
 
-
-
 def number_of_subscribers(subreddit):
-    """Return the total number of subscribers on a given subreddit.
+    """
+    Return the total number of subscribers on a given subreddit.
 
     Args:
         subreddit (str): The subreddit to query.
@@ -27,9 +26,3 @@ def number_of_subscribers(subreddit):
         except KeyError:
             return 0
     return 0
-
-
-if __name__ == "__main__":
-    subreddit = input("Enter the subreddit: ")
-    subscribers = number_of_subscribers(subreddit)
-    print(f"Number of subscribers: {subscribers}")
