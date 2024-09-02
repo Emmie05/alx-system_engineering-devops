@@ -45,6 +45,3 @@
   - Document the incident and the changes made in the internal knowledge base.
   - Schedule a training session for the DevOps team on best practices for server configuration management.
 
-## **Photos**
-
-![Insert Photo Description Here](link-to-your-photo2)
